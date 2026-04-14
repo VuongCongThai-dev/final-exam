@@ -82,12 +82,9 @@ private:
   string position;
 
 public:
-  Employee() : Person() {
-    this->position = "";
-  }
+  Employee() : Person() { this->position = ""; }
 
-  Employee(string id, string name, string position)
-      : Person(id, name) {
+  Employee(string id, string name, string position) : Person(id, name) {
     this->position = position;
   }
 
@@ -179,8 +176,7 @@ public:
     cout << "  " << id << "\t" << trangThai << endl;
   }
 
-  void input() {
-  }
+  void input() {}
 };
 
 const int MAX_DETAILS = 20;
@@ -251,7 +247,8 @@ public:
     cout << "  Nhan vien  : " << employeeName << endl;
     cout << "  Ban        : " << tableId << endl;
     cout << "  Ngay       : " << date << endl;
-    cout << "  Trang thai : " << (isPaid ? "Da thanh toan" : "Chua thanh toan") << endl;
+    cout << "  Trang thai : " << (isPaid ? "Da thanh toan" : "Chua thanh toan")
+         << endl;
     cout << endl;
     cout << "  Chi tiet don hang:" << endl;
     cout << "  " << "Ma" << "\t" << "Ten" << "\t" << "Don gia" << "\t" << "SL"
@@ -561,7 +558,8 @@ public:
       return;
     }
     cout << endl << "  DANH SACH BAN" << endl << endl;
-    cout << "  " << left << setw(6) << "Ma" << "  " << left << setw(12) << "Trang thai" << endl;
+    cout << "  " << left << setw(6) << "Ma" << "  " << left << setw(12)
+         << "Trang thai" << endl;
     for (int i = 0; i < count; i++) {
       tables[i].showInfo();
     }
@@ -633,6 +631,10 @@ public:
       cout << "  Khong tim thay ban!" << endl;
       return;
     }
+    if (!table->isAvailable()) {
+      cout << "  Ban nay hien dang co khach, khong the them hoa don moi!" << endl;
+      return;
+    }
 
     string date;
     cout << "  Nhap ngay (dd/mm/yyyy): ";
@@ -692,7 +694,8 @@ public:
       return;
     }
 
-    cout << "  Tong tien phai thanh toan: " << o->getTotalAmount() << " VND" << endl;
+    cout << "  Tong tien phai thanh toan: " << o->getTotalAmount() << " VND"
+         << endl;
     o->setIsPaid(true);
 
     Table *table = tm.findById(o->getTableId());
@@ -747,8 +750,8 @@ public:
 
     for (int i = 0; i < count; i++) {
       if (orders[i].getDate() == date && orders[i].getIsPaid()) {
-        cout << "  " << orders[i].getId() << "\t" << orders[i].getEmployeeName() << "\t"
-             << orders[i].getTotalAmount() << endl;
+        cout << "  " << orders[i].getId() << "\t" << orders[i].getEmployeeName()
+             << "\t" << orders[i].getTotalAmount() << endl;
         totalRevenue = totalRevenue + orders[i].getTotalAmount();
         soHoaDon++;
       }
