@@ -610,7 +610,6 @@ public:
       return;
     }
 
-    // Chon nhan vien
     em.displayAll();
     string empId;
     cout << "  Nhap ma nhan vien phuc vu: ";
@@ -621,7 +620,6 @@ public:
       return;
     }
 
-    // Chon ban
     tm.displayAll();
     string tableId;
     cout << "  Nhap ma ban: ";
@@ -632,7 +630,8 @@ public:
       return;
     }
     if (!table->isAvailable()) {
-      cout << "  Ban nay hien dang co khach, khong the them hoa don moi!" << endl;
+      cout << "  Ban nay hien dang co khach, khong the them hoa don moi!"
+           << endl;
       return;
     }
 
@@ -642,7 +641,6 @@ public:
 
     Order order(orderId, emp->getName(), tableId, date);
 
-    // Them do uong vao hoa don
     int choice = 1;
     while (choice == 1) {
       dm.displayAll();
@@ -670,7 +668,6 @@ public:
       cin.ignore();
     }
 
-    // Cap nhat trang thai ban
     table->setAvailable(false);
 
     orders[count++] = order;
@@ -700,10 +697,62 @@ public:
 
     Table *table = tm.findById(o->getTableId());
     if (table != nullptr) {
-      table->setAvailable(true); // Giai phong ban
+      table->setAvailable(true);
     }
 
     cout << "  Thanh toan thanh cong! Ban da duoc giai phong." << endl;
+  }
+
+  void changeTable(TableManager &tm) {
+    string orderId;
+    cout << "  Nhap ma hoa don can doi ban: ";
+    getline(cin, orderId);
+
+    Order *o = findById(orderId);
+    if (o == nullptr) {
+      cout << "  Khong tim thay hoa don!" << endl;
+      return;
+    }
+
+    if (o->getIsPaid()) {
+      cout << "  Hoa don nay da thanh toan, khong the doi ban!" << endl;
+      return;
+    }
+
+    string oldTableId = o->getTableId();
+    cout << "  Ban hien tai: " << oldTableId << endl;
+
+    tm.displayAll();
+    string newTableId;
+    cout << "  Nhap ma ban moi muon chuyen den: ";
+    getline(cin, newTableId);
+
+    if (newTableId == oldTableId) {
+        cout << "  Ban moi trung voi ban cu!" << endl;
+        return;
+    }
+
+    Table *newTable = tm.findById(newTableId);
+    if (newTable == nullptr) {
+      cout << "  Khong tim thay ban moi!" << endl;
+      return;
+    }
+
+    if (!newTable->isAvailable()) {
+      cout << "  Ban moi hien dang co khach, khong the doi sang!" << endl;
+      return;
+    }
+
+    Table *oldTable = tm.findById(oldTableId);
+    if (oldTable != nullptr) {
+      oldTable->setAvailable(true);
+    }
+
+    newTable->setAvailable(false);
+
+    o->setTableId(newTableId);
+
+    cout << "  Da doi ban thanh cong tu " << oldTableId << " sang " << newTableId << "!" << endl;
   }
 
   void remove() {
@@ -765,8 +814,6 @@ public:
       cout << "  TONG DOANH THU: " << totalRevenue << " VND" << endl;
     }
   }
-
-  // Da bo doanh thu thang
 };
 
 class Menu {
@@ -876,7 +923,7 @@ private:
       system("cls");
       cout << endl << "  QUAN LY BAN" << endl << endl;
       cout << "  1. Them ban" << endl;
-      cout << "  2. Sua ban" << endl;
+      cout << "  2. Doi ban" << endl;
       cout << "  3. Xoa ban" << endl;
       cout << "  4. Hien thi danh sach" << endl;
       cout << "  0. Quay lai" << endl;
@@ -893,7 +940,7 @@ private:
         cin.get();
         break;
       case 2:
-        tableManager.update();
+        orderManager.changeTable(tableManager);
         cout << endl << "  Nhan Enter de tiep tuc...";
         cin.get();
         break;
