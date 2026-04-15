@@ -609,6 +609,7 @@ public:
       return;
     }
 
+    displayAll();
     string orderId;
     cout << "  Nhap ma hoa don: ";
     getline(cin, orderId);
