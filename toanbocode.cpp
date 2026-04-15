@@ -296,6 +296,7 @@ public:
       return;
     }
 
+    displayAll();
     string id;
     cout << "  Nhap ma do uong: ";
     getline(cin, id);
@@ -312,6 +313,7 @@ public:
   }
 
   void update() {
+    displayAll();
     string id;
     cout << "  Nhap ma do uong can sua: ";
     getline(cin, id);
@@ -331,6 +333,7 @@ public:
   }
 
   void remove() {
+    displayAll();
     string id;
     cout << "  Nhap ma do uong can xoa: ";
     getline(cin, id);
@@ -398,6 +401,7 @@ public:
       return;
     }
 
+    displayAll();
     string id;
     cout << "  Nhap ma nhan vien: ";
     getline(cin, id);
@@ -414,6 +418,7 @@ public:
   }
 
   void update() {
+    displayAll();
     string id;
     cout << "  Nhap ma nhan vien can sua: ";
     getline(cin, id);
@@ -433,6 +438,7 @@ public:
   }
 
   void remove() {
+    displayAll();
     string id;
     cout << "  Nhap ma nhan vien can xoa: ";
     getline(cin, id);
@@ -500,6 +506,7 @@ public:
       return;
     }
 
+    displayAll();
     string id;
     cout << "  Nhap ma ban: ";
     getline(cin, id);
@@ -535,6 +542,7 @@ public:
   }
 
   void remove() {
+    displayAll();
     string id;
     cout << "  Nhap ma ban can xoa: ";
     getline(cin, id);
@@ -676,6 +684,7 @@ public:
   }
 
   void pay(TableManager &tm) {
+    displayAll();
     string id;
     cout << "  Nhap ma hoa don can thanh toan: ";
     getline(cin, id);
@@ -704,6 +713,7 @@ public:
   }
 
   void changeTable(TableManager &tm) {
+    displayAll();
     string orderId;
     cout << "  Nhap ma hoa don can doi ban: ";
     getline(cin, orderId);
@@ -728,8 +738,8 @@ public:
     getline(cin, newTableId);
 
     if (newTableId == oldTableId) {
-        cout << "  Ban moi trung voi ban cu!" << endl;
-        return;
+      cout << "  Ban moi trung voi ban cu!" << endl;
+      return;
     }
 
     Table *newTable = tm.findById(newTableId);
@@ -752,10 +762,12 @@ public:
 
     o->setTableId(newTableId);
 
-    cout << "  Da doi ban thanh cong tu " << oldTableId << " sang " << newTableId << "!" << endl;
+    cout << "  Da doi ban thanh cong tu " << oldTableId << " sang "
+         << newTableId << "!" << endl;
   }
 
   void remove() {
+    displayAll();
     string id;
     cout << "  Nhap ma hoa don can xoa: ";
     getline(cin, id);
